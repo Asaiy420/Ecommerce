@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import User from "../models/user.model.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+
 import "dotenv/config";
 import { redis } from "../lib/redis.js";
 
@@ -86,25 +88,70 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const login = async (req: Request, res: Response): Promise<void> => {};
+export const login = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      res.status(400).json({ message: "All fields are required" });
+      return;
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(400).json({ message: "Invalid Credentials" });
+      return;
+    }
+
+    const isPasswordValid = await user.comparePassword(password); // compare the password with the hashed password
+
+    if (!isPasswordValid) {
+      res.status(400).json({ message: "Invalid Credentials" });
+      return;
+    }
+
+    const { accessToken, refreshToken } = generateTokens(user._id.toString());
+    await storeRefreshToken(user._id.toString(), refreshToken);
+
+    setCookies(res, refreshToken, accessToken);
+
+    res.status(200).json({
+      message: "User logged in successfully",
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error: any) {
+    console.log("Error in login controller", error.message);
+    res.status(500).json({ message: "Internal server error" });
+    return;
+  }
+};
 
 export const logout = async (req: Request, res: Response): Promise<void> => {
   try {
     const refreshToken = req.cookies.refreshToken;
 
-    if (refreshToken){
-      const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!) as string | JwtPayload
-      
-      if (typeof decoded === "object" && "userId" in decoded){ // check if decoded is an object and has a userId property
-        await redis.del(`refresh_token:${decoded.userId}`) // delete refresh token from redis
+    if (refreshToken) {
+      const decoded = jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET!
+      ) as string | JwtPayload;
+
+      if (typeof decoded === "object" && "userId" in decoded) {
+        // check if decoded is an object and has a userId property
+        await redis.del(`refresh_token:${decoded.userId}`); // delete refresh token from redis
       }
     }
 
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
     res.json({ message: "Logged out successfully" });
-
-  } catch (error:any) {
+  } catch (error: any) {
     console.log("Error in logout controller", error.message);
     res.status(500).json({ message: "Internal server error" });
     return;
