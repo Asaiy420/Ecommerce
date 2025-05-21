@@ -65,7 +65,7 @@ userSchema.pre<IUser>("save", async function (next) {
 
   try {
     this.password = await bcrypt.hash(this.password, 10);
-    next();
+    next(); 
   } catch (error: any) {
     next(error);
   }

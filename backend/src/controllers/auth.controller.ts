@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/user.model.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import bcrypt from "bcryptjs";
 
 import "dotenv/config";
 import { redis } from "../lib/redis.js";
@@ -153,6 +152,63 @@ export const logout = async (req: Request, res: Response): Promise<void> => {
     res.json({ message: "Logged out successfully" });
   } catch (error: any) {
     console.log("Error in logout controller", error.message);
+    res.status(500).json({ message: "Internal server error" });
+    return;
+  }
+};
+
+export const refreshToken = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+      res.status(400).json({ message: "No refresh token provided" });
+      return;
+    }
+    const decoded = jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET!
+    ) as string | JwtPayload;
+
+    let userId: string | undefined;
+
+    if (typeof decoded === "object" && "userId" in decoded) {
+      userId = decoded.userId;
+    }
+
+    if (!userId) {
+      res.status(400).json({ message: "Invalid refresh token" });
+      return;
+    }
+
+    const storedToken = await redis.get(`refresh_token:${userId}`);
+
+    // check if the stored token is the same as the refresh token
+
+    if (storedToken !== refreshToken) {
+      res.status(400).json({ message: "Invalid refresh token" });
+      return;
+    }
+
+    // generate new access token
+
+    const accessToken = jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET!, {
+      expiresIn: "15m",
+    });
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 15 * 60 * 1000,
+    });
+
+    res.status(200).json({ message: "Access token refreshed successfully" });
+  } catch (error: any) {
+    console.log("Error in refresh token controller", error.message);
     res.status(500).json({ message: "Internal server error" });
     return;
   }
