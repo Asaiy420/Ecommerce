@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Product from "../models/product.model.js";
 import { redis } from "../lib/redis.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export const getProducts = async (
   req: Request,
@@ -50,18 +51,25 @@ export const createProduct = async (
   try {
     const { name, price, description, image, category } = req.body;
 
-    if (!name || !price || !description || !image || !category) {
-      res.status(400).json({ message: "Missing required fields" });
-      return;
+    let cloudinaryResponse = null;
+
+    if (image){
+       cloudinaryResponse = await cloudinary.uploader.upload(image, {folder: "products"})
     }
 
-    const product = new Product({
+    if (!name || !price || !description || !image || !category) {
+      res.status(400).json({ message: "Missing required fields" });
+      return; 
+    }
+
+    const product = await Product.create({
       name,
       price,
       description,
-      image,
-      category,
-    });
+      image: cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : "",
+      category
+
+    })
 
     await product.save();
 
