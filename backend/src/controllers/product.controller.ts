@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Product from "../models/product.model.js";
+import { redis } from "../lib/redis.js";
 
 export const getProducts = async (
   req: Request,
@@ -122,26 +123,51 @@ export const deleteProduct = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-    try {
-        const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-        const existingProduct = await Product.findById(id);
+    const existingProduct = await Product.findById(id);
 
-        if (!existingProduct){
-            res.status(404).json({error: "Product with this ID does not exist"})
-            return;
-        }
-
-        const deleteProduct = await Product.findByIdAndDelete(id)
-
-
-        res.status(200).json({
-            message: "Product deleted successfully!",
-            product: deleteProduct
-        })
-
-    } catch (error:any) {
-        console.log("Error in delete product controller", error.message);
-        res.status(500).json({error: "Internal Server Error"})
+    if (!existingProduct) {
+      res.status(404).json({ error: "Product with this ID does not exist" });
+      return;
     }
+
+    const deletedProduct = await Product.findByIdAndDelete(id);
+
+    res.status(200).json({
+      message: "Product deleted successfully!",
+      product: deletedProduct,
+    });
+  } catch (error: any) {
+    console.log("Error in delete product controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
+
+export const getFeaturedProducts = async (req: Request, res: Response):Promise<void> => {
+  try{
+
+    const cachedKey = await redis.get("featured_products")
+
+    if (cachedKey){  
+      res.json(JSON.parse(cachedKey))
+      return;
+    }
+
+    const featuredProducts = await Product.find({isFeatured:true}).lean()
+
+    if (!featuredProducts){
+      res.status(404).json({error: "NO featured products found"})
+      return;
+    }
+
+    await redis.set("featured_products", JSON.stringify(featuredProducts));
+
+    res.json(featuredProducts);
+
+  }catch(error:any){
+    console.log("Error in getFeatured controller", error.message);
+    res.status(500).json({message: "Internal Server Error"})
+  }
+}
