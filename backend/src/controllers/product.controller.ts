@@ -149,7 +149,7 @@ export const deleteProduct = async (
 
       try {
         await cloudinary.uploader.destroy(`products/${publicId}`);
-        console.log("deleted image from cloudinary")
+        console.log("deleted image from cloudinary");
       } catch (error: any) {
         console.error("Error when deleting the image ", error.message);
         res.status(500).json({ error: "Internal Server Error" });
@@ -195,29 +195,91 @@ export const getFeaturedProducts = async (
   }
 };
 
-
-export const getRecomendations = async (req: Request, res:Response):Promise<void> => {
+export const getRecomendations = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const products = await Product.aggregate([
       {
-        $sample: {size: 3}
+        $sample: { size: 3 },
       },
       {
         $project: {
-          _id:1,
-          name:1,
-          description:1,
-          image:1,
-          price:1
-
-        }
-      }
-    ])
+          _id: 1,
+          name: 1,
+          description: 1,
+          image: 1,
+          price: 1,
+        },
+      },
+    ]);
 
     res.status(200).json(products);
-  } catch (error:any) {
+  } catch (error: any) {
     console.log("Error when getting recommendations", error.message);
-    res.status(500).json({error: "Internal Server Error"})
+    res.status(500).json({ error: "Internal Server Error" });
+    return;
+  }
+};
+
+export const getProductsByCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { category } = req.params;
+
+    const products = await Product.find({ category });
+
+    if (!products) {
+      res.status(404).json({ message: "Category Not Found" });
+      return;
+    }
+
+    res.status(200).json(products);
+  } catch (error: any) {
+    console.log("Error in getCategory controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+    return;
+  }
+};
+
+export const toggleFeaturedProduct = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+
+    if (product) {
+      product.isFeatured = !product.isFeatured;
+      const updatedProduct = await product.save();
+
+      //update the cache
+
+      await updateFeaturedProductsCache();
+
+      res.status(200).json(updatedProduct);
+    } else {
+      res.status(404).json({ error: "Product with this id does not exists" });
+      return;
+    }
+  } catch (error: any) {
+    console.log("Error in toggleFeature controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+    return;
+  }
+};
+
+async function updateFeaturedProductsCache() {
+  try {
+    const featuredProducts = await Product.find({ isFeatured: true }).lean();
+    await redis.set("featured_products", JSON.stringify(featuredProducts));
+  } catch (error: any) {
+    console.log("Error in updateFeaturedProductsCache functuin", error.message);
     return;
   }
 }
