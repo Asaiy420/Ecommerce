@@ -213,3 +213,15 @@ export const refreshToken = async (
     return;
   }
 };
+
+export const getProfile = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    res.json((req as any).user);
+  } catch (error: any) {
+    console.log("Error in getProfile controller");
+    res.status(500).json({ error: "Intenal Server Error" });
+  }
+};
