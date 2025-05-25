@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
-  const user = true;
+  const user = false;
   const isAdmin = true;
   return (
     <header className="fixed top-0 left-0 w-full bg-black bg-opacity-90 backgrop-blur-md shadow-lg z-40 transition-all duration-300 border -b border-zinc-900">
