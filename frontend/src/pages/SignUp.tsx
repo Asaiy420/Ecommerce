@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Lock, User, ArrowRight, Loader } from "lucide-react";
@@ -5,7 +6,7 @@ import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 
 const SignUp = () => {
-  const loading = true;
+  const loading = false;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -14,7 +15,7 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
   };
