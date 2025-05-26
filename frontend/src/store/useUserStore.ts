@@ -17,11 +17,17 @@ interface SignupParams {
   confirmPassword: string;
 }
 
+interface LoginParams {
+  email: string;
+  password: string;
+}
+
 interface UserStore {
   user: User | null;
   loading: boolean;
   checkingAuth: boolean;
   signup: (params: SignupParams) => Promise<void>;
+  login: (params: LoginParams) => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -43,13 +49,37 @@ export const useUserStore = create<UserStore>((set) => ({
       return;
     }
 
+    if (password.length < 6) {
+      set({ loading: false });
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
     try {
       const res = await axiosInstance.post("/auth/sign-up", {
         username,
         email,
         password,
       });
-      set({ user: res.data.user, loading: false });
+      set({ user: res.data, loading: false });
+    } catch (error) {
+      set({ loading: false });
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.message || "An error occurred");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    }
+  },
+
+  login: async ({ email, password }: LoginParams): Promise<void> => {
+    set({ loading: true });
+
+    try {
+      const res = await axiosInstance.post("/auth/login", { email, password });
+
+      set({ user: res.data, loading: false });
+      
     } catch (error) {
       set({ loading: false });
       if (error instanceof AxiosError) {
