@@ -34,7 +34,7 @@ interface UserStore {
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
   loading: false,
-  checkingAuth: true,
+  checkingAuth: false,
 
   signup: async ({
     username,
@@ -98,6 +98,7 @@ export const useUserStore = create<UserStore>((set) => ({
       set({ user: response.data, checkingAuth: false });
     } catch (error) {
       set({ loading: false });
+      set({ checkingAuth: false, user: null });
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message || "An error occurred");
       } else {
