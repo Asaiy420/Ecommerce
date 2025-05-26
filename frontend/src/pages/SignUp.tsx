@@ -7,7 +7,6 @@ import { Button } from "../components/ui/button";
 import { useUserStore } from "../store/useUserStore";
 
 const SignUp = () => {
-  const loading = false;
 
   const [formData, setFormData] = useState({
     username: "",
@@ -16,7 +15,7 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  const { signup } = useUserStore();
+  const { signup, loading } = useUserStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

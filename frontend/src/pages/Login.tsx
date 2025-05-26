@@ -3,15 +3,20 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Mail, Lock, ArrowRight, Loader } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { useUserStore } from "../store/useUserStore";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const loading = true;
+
+  const { login, loading } = useUserStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email, password);
+    login({
+      email,
+      password,
+    });
   };
 
   return (
