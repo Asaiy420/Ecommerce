@@ -4,20 +4,28 @@ import { Link } from "react-router-dom";
 import { Mail, Lock, User, ArrowRight, Loader } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
+import { useUserStore } from "../store/useUserStore";
 
 const SignUp = () => {
   const loading = false;
 
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
+  const { signup } = useUserStore();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    signup({
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+    });
   };
 
   return (
@@ -44,22 +52,22 @@ const SignUp = () => {
             {/* FULLNAME */}
             <div>
               <label
-                htmlFor="name"
+                htmlFor="username"
                 className="block text-sm font-medium text-white"
               >
-                Full Name
+                Username
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="size-5 text-white" aria-hidden="true" />
                 </div>
                 <input
-                  id="name"
+                  id="username"
                   type="text"
                   required
-                  value={formData.name}
+                  value={formData.username}
                   onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
+                    setFormData({ ...formData, username: e.target.value })
                   }
                   className="block w-full px-3 py-2 pl-10 bg-zinc-950 border border-zinc-950 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                   placeholder="John Doe"
@@ -164,9 +172,13 @@ const SignUp = () => {
               )}
             </Button>
           </form>
-          <p className="mt-8 text-center text-sm text-zinc-400">Already have an account? {" "}
-            <Link to={"/login"} className="font-medium text-emerald-300 hover:text-emerald-600">
-              Login here <ArrowRight className="inline size-4"/>
+          <p className="mt-8 text-center text-sm text-zinc-400">
+            Already have an account?{" "}
+            <Link
+              to={"/login"}
+              className="font-medium text-emerald-300 hover:text-emerald-600"
+            >
+              Login here <ArrowRight className="inline size-4" />
             </Link>
           </p>
         </div>
