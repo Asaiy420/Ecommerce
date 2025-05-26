@@ -6,14 +6,18 @@ import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
 import { useUserStore } from "./store/useUserStore";
 import { useEffect } from "react";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const App = () => {
 
-  const { user, checkAuth } = useUserStore();
+  const { user, checkAuth, checkingAuth } = useUserStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth])
+
+  if (checkingAuth) return <LoadingSpinner/>
+
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <div className="relative z-50 pt-20">
