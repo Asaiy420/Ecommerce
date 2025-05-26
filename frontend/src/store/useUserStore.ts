@@ -29,6 +29,7 @@ interface UserStore {
   signup: (params: SignupParams) => Promise<void>;
   login: (params: LoginParams) => Promise<void>;
   checkAuth: () => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -68,7 +69,7 @@ export const useUserStore = create<UserStore>((set) => ({
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message || "An error occurred");
       } else {
-        toast.error("An unexpected error occurred");
+        toast.error("An unexpected error occurred when signing up");
       }
     }
   },
@@ -85,7 +86,7 @@ export const useUserStore = create<UserStore>((set) => ({
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message || "An error occurred");
       } else {
-        toast.error("An unexpected error occurred");
+        toast.error("An unexpected error occurred when logging in");
       }
     }
   },
@@ -102,7 +103,19 @@ export const useUserStore = create<UserStore>((set) => ({
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message || "An error occurred");
       } else {
-        toast.error("An unexpected error occurred");
+        toast.error("An unexpected error occurred when checking auth");
+      }
+    }
+  },
+  logout: async () => {
+    try {
+      await axiosInstance.post("/auth/logout")
+      set({ user: null });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.message || "An error occurred");
+      } else {
+        toast.error("An unexpected error occurred when logging out");
       }
     }
   },
