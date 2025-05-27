@@ -8,7 +8,7 @@ import { useUserStore } from "./store/useUserStore";
 import { useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
-  
+import Admin from "./pages/Admin.tsx";
 
 const App = () => {
   const { user, checkAuth, checkingAuth } = useUserStore();
@@ -21,10 +21,8 @@ const App = () => {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      
       <div className="min-h-screen bg-black text-white relative overflow-hidden">
         <div className="relative z-50 pt-20">
-          
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -35,6 +33,11 @@ const App = () => {
             <Route
               path="/login"
               element={!user ? <Login /> : <Navigate to="/" />}
+            />
+
+            <Route
+              path="/secret-dashboard"
+              element={user?.role === "admin" ? <Admin /> : <Navigate to="/login" />} 
             />
           </Routes>
         </div>
