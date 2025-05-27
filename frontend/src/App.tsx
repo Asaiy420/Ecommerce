@@ -7,29 +7,40 @@ import { Toaster } from "react-hot-toast";
 import { useUserStore } from "./store/useUserStore";
 import { useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
+import { ThemeProvider } from "./components/ThemeProvider.tsx";
+  
 
 const App = () => {
-
   const { user, checkAuth, checkingAuth } = useUserStore();
 
   useEffect(() => {
     checkAuth();
-  }, [checkAuth])
+  }, [checkAuth]);
 
-  if (checkingAuth) return <LoadingSpinner/>
+  if (checkingAuth) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <div className="relative z-50 pt-20">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={ !user? <SignUp/>: <Navigate to="/" />} />
-          <Route path="/login" element={ !user? <Login/>: <Navigate to="/" />} />
-        </Routes>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      
+      <div className="min-h-screen bg-black text-white relative overflow-hidden">
+        <div className="relative z-50 pt-20">
+          
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/signup"
+              element={!user ? <SignUp /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/login"
+              element={!user ? <Login /> : <Navigate to="/" />}
+            />
+          </Routes>
+        </div>
+        <Toaster />
       </div>
-      <Toaster/>
-    </div>
+    </ThemeProvider>
   );
 };
 

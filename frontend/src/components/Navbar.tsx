@@ -2,6 +2,7 @@ import { ShoppingCart, UserPlus, LogIn, LogOut, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useUserStore } from "../store/useUserStore";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar = () => {
   const { user, logout } = useUserStore();
@@ -50,7 +51,10 @@ const Navbar = () => {
             )}
 
             {user ? (
-              <Button className=" bg-black hover:bg-gray-400 rounded-md flex items-center transition duration-300 ease-in-out" onClick={logout}>
+              <Button
+                className=" bg-black hover:bg-gray-400 text-white rounded-md flex items-center transition duration-300 ease-in-out"
+                onClick={logout}
+              >
                 <LogOut size={18} />
                 <span className="hiiden sm:inline">Logout</span>
               </Button>
@@ -71,6 +75,7 @@ const Navbar = () => {
                   <LogIn className="mr-2" size={18} />
                   Login
                 </Link>
+                <ModeToggle />
               </>
             )}
           </nav>
