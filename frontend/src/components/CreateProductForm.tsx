@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Loader, PlusCircle, Upload } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
+import { useProductStore } from "../store/useProductStore";
 const categories = [
   "jeans",
   "t-shirts",
@@ -20,11 +21,26 @@ const CreateProductForm = () => {
     category: "",
     image: "",
   });
-  const loading = false;
+  const { createProduct, loading } = useProductStore();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(newProduct);
+    await createProduct(newProduct);
+    setNewProduct({ name: "", description: "", price: 0, category: "", image: "" });
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setNewProduct({ ...newProduct, image: reader.result as string });
+      };
+
+      reader.readAsDataURL(file); // base64 string
+    }
   };
 
   return (
@@ -133,7 +149,13 @@ const CreateProductForm = () => {
         </div>
         {/* IMAGE FORM */}
         <div className="mt-1 flex items-center">
-          <input type="file" id="image" className="sr-only" accept="image/*" />
+          <input
+            type="file"
+            id="image"
+            className="sr-only"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
           <label
             htmlFor="image"
             className=" mt-2 cursor-pointer bg-zinc-950 py-2 px-3 border border-zinc-900 rounded-md shadow-sm text-sm leading-4 font-medium text-white hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-emerald-500"
@@ -142,7 +164,7 @@ const CreateProductForm = () => {
             Upload Image
           </label>
           {newProduct.image && (
-            <span className="ml-3 text-sm text-white">{newProduct.image}</span>
+            <span className="ml-3 text-sm text-white">Image uploaded ✅ </span>
           )}
         </div>
 
