@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useUserStore } from "../store/useUserStore";
 import { ModeToggle } from "./mode-toggle";
+import { useCartStore } from "../store/useCartStore";
 
 const Navbar = () => {
   const { user, logout } = useUserStore();
+  const {cartItems} = useCartStore();
+
   const isAdmin = user?.role === "admin";
   return (
     <header className="fixed top-0 left-0 w-full bg-black bg-opacity-90 backgrop-blur-md shadow-lg z-40 transition-all duration-300 border -b border-zinc-900">
@@ -36,7 +39,7 @@ const Navbar = () => {
                 />
                 <span className="hidden sm:inline">Cart</span>
                 <span className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full px-2 py-0.5  text-xs group-hover:bg-gray-400 transition duration-300 ease-in-out">
-                  2
+                  {cartItems.length}
                 </span>
               </Link>
             )}
