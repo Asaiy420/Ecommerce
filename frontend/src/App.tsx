@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import Admin from "./pages/Admin.tsx";
+import Category from "./pages/Category.tsx";
 
 const App = () => {
   const { user, checkAuth, checkingAuth } = useUserStore();
@@ -37,7 +38,14 @@ const App = () => {
 
             <Route
               path="/secret-dashboard"
-              element={user?.role === "admin" ? <Admin /> : <Navigate to="/login" />} 
+              element={
+                user?.role === "admin" ? <Admin /> : <Navigate to="/login" />
+              }
+            />
+
+            <Route
+              path="/category/:category"
+              element={ <Category/>}
             />
           </Routes>
         </div>
