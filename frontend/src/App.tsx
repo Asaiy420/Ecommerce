@@ -10,6 +10,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import Admin from "./pages/Admin.tsx";
 import Category from "./pages/Category.tsx";
+import Cart from "./pages/Cart.tsx";
 
 const App = () => {
   const { user, checkAuth, checkingAuth } = useUserStore();
@@ -47,6 +48,7 @@ const App = () => {
               path="/category/:category"
               element={ <Category/>}
             />
+            <Route path="/cart"  element={user ? <Cart/> : <Navigate to = "/login"/>} />
           </Routes>
         </div>
         <Toaster />
