@@ -19,13 +19,18 @@ interface Product {
     const {user} = useUserStore();
     const {addToCart} = useCartStore();
 
-    const handleAddToCart =  () => {
-        if (!user){
-            toast.error("Please login to add products to cart", {id: "login-toast"}); // prevents user from spamming 
+    const handleAddToCart = () => {
+        if (!user) {
+            toast.error("Please login to add products to cart", {id: "login-toast"});
             return;
-        }else{
-            addToCart(product._id);
         }
+        
+        if (!product._id) {
+            toast.error("Invalid product");
+            return;
+        }
+        
+        addToCart(product._id);
     }
     return (
       <div className="flex w-full relative flex-col overflow-hidden rounded-lg border border-zinc-950 shadow-lg">

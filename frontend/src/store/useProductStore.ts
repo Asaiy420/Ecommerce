@@ -3,15 +3,7 @@ import toast from "react-hot-toast";
 import axiosInstance from "../lib/axios";
 import { AxiosError } from "axios";
 
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  isFeatured: boolean;
-  category: string;
-}
+
 
 interface CreateProductInput {
   name: string;
