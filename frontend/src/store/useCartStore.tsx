@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 interface Cartitem {
   id: string;
   quantity: number;
+  price?: number;
 }
 
 interface Coupon {
@@ -19,6 +20,7 @@ interface CartStore {
   total: number;
   subTotal: number;
   loading: boolean;
+  isCouponApplied: boolean;
   getCartItems: () => Promise<void>;
   addToCart: (productId: string) => Promise<void>;
   calculateTotals: () => Promise<void>;
@@ -32,6 +34,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
   total: 0,
   subTotal: 0,
   loading: false,
+  isCouponApplied: false,
 
   getCartItems: async () => {
     set({ loading: true });
@@ -91,30 +94,75 @@ export const useCartStore = create<CartStore>((set, get) => ({
         (item) => item.id && item.id !== "undefined" && item.quantity > 0
       );
 
+      console.log("Valid Cart Items:", validCartItems);
+
       if (validCartItems.length === 0) {
         set({ subTotal: 0, total: 0 });
+        console.log("Cart is empty, totals set to 0.");
         return;
       }
 
       // Fetch all product details for items in cart
-      const productDetails = await Promise.all(
-        validCartItems.map((item) => axiosInstance.get(`/products/${item.id}`))
+      const productDetailsPromises = validCartItems.map((item) =>
+        axiosInstance.get(`/products/${item.id}`).catch((error) => {
+          console.error(`Failed to fetch product ${item.id}:`, error);
+          return null;
+        })
       );
 
+      const productDetailsResults = await Promise.all(productDetailsPromises);
+
+      console.log("Product Details Results:", productDetailsResults);
+
+      // Filter out failed requests and calculate totals only for successful ones
       const subTotal = validCartItems.reduce((sum, item, index) => {
-        const productPrice = productDetails[index].data.price;
-        return sum + productPrice * item.quantity;
+        let itemPrice = 0;
+
+        // Prioritize using the price already available in the cart item if it's a valid number
+        if (typeof item.price === "number" && !isNaN(item.price)) {
+          itemPrice = item.price;
+          console.log(`Using item.price for item ${item.id}: ${itemPrice}`);
+        } else {
+          // If item.price is not available or not a valid number, fetch product details
+          const productDetails = productDetailsResults[index];
+          if (!productDetails) {
+            console.log(
+              `Skipping item ${item.id} due to failed product details fetch.`
+            );
+            return sum;
+          }
+
+          const fetchedPrice = productDetails.data.price;
+          // Check if fetchedPrice is a valid number, otherwise default to 0
+          itemPrice =
+            typeof fetchedPrice === "number" && !isNaN(fetchedPrice)
+              ? fetchedPrice
+              : 0;
+          console.log(`Using fetched price for item ${item.id}: ${itemPrice}`);
+        }
+
+        console.log(
+          `Item ${item.id}: Calculated Price = ${itemPrice}, Quantity = ${item.quantity}`
+        );
+        return sum + itemPrice * item.quantity;
       }, 0);
 
       let total = subTotal;
 
-      if (coupon) {
+      if (coupon && get().isCouponApplied) {
         const discount = (subTotal * coupon.discountPercentage) / 100;
         total = subTotal - discount;
+        console.log(
+          `Coupon applied: discount = ${discount}, new total = ${total}`
+        );
       }
+
+      console.log("Calculated SubTotal:", subTotal);
+      console.log("Calculated Total:", total);
 
       set({ subTotal, total });
     } catch (error) {
+      console.error("Error calculating totals:", error);
       if (error instanceof AxiosError) {
         toast.error(
           error.response?.data?.message || "Error calculating totals"
@@ -122,8 +170,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
       } else {
         toast.error("An unexpected error occurred");
       }
-      // Reset totals on error
-      set({ subTotal: 0, total: 0 });
+      // Don't reset totals on error, keep previous values
     }
   },
 

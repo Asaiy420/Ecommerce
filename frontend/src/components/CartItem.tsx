@@ -81,7 +81,10 @@ const CartItem = ({ item }: CartItemProps) => {
           </div>
           <div className="text-end md:order-4 md:w-32">
             <p className="text-base font-bold text-emerald-400">
-              ${displayPrice}
+              $
+              {displayPrice
+                ? (displayPrice * item.quantity).toFixed(2)
+                : "0.00"}
             </p>
           </div>
         </div>
