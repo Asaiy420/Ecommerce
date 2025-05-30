@@ -44,8 +44,8 @@ ecom/
 
 ## Development
 
-- Frontend runs on: http://localhost:3000
-- Backend runs on: http://localhost:5000
+- Frontend runs on: http://localhost:5173
+- Backend runs on: http://localhost:3001
 
 ## Git Workflow
 
