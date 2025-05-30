@@ -7,7 +7,7 @@ import { useCartStore } from "../store/useCartStore";
 
 const Navbar = () => {
   const { user, logout } = useUserStore();
-  const {cartItems} = useCartStore();
+  const { cartItems } = useCartStore();
 
   const isAdmin = user?.role === "admin";
   return (
@@ -38,9 +38,11 @@ const Navbar = () => {
                   size={20}
                 />
                 <span className="hidden sm:inline">Cart</span>
-                <span className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full px-2 py-0.5  text-xs group-hover:bg-gray-400 transition duration-300 ease-in-out">
-                  {cartItems.length}
-                </span>
+                {cartItems.length > 0 && (
+                  <span className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full px-2 py-0.5  text-xs group-hover:bg-gray-400 transition duration-300 ease-in-out">
+                    {cartItems.length}
+                  </span>
+                )}
               </Link>
             )}
             {isAdmin && (
