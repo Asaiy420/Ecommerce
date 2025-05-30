@@ -11,13 +11,18 @@ import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import Admin from "./pages/Admin.tsx";
 import Category from "./pages/Category.tsx";
 import Cart from "./pages/Cart.tsx";
+import { useCartStore } from "./store/useCartStore.tsx";
 
 const App = () => {
   const { user, checkAuth, checkingAuth } = useUserStore();
-
+  const { getCartItems } = useCartStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  useEffect(() => {
+    getCartItems();
+  }, [getCartItems]);
 
   if (checkingAuth) return <LoadingSpinner />;
 
@@ -44,11 +49,11 @@ const App = () => {
               }
             />
 
+            <Route path="/category/:category" element={<Category />} />
             <Route
-              path="/category/:category"
-              element={ <Category/>}
+              path="/cart"
+              element={user ? <Cart /> : <Navigate to="/login" />}
             />
-            <Route path="/cart"  element={user ? <Cart/> : <Navigate to = "/login"/>} />
           </Routes>
         </div>
         <Toaster />
