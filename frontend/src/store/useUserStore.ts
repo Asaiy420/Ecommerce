@@ -80,7 +80,7 @@ export const useUserStore = create<UserStore>((set) => ({
     try {
       const res = await axiosInstance.post("/auth/login", { email, password });
 
-      set({ user: res.data, loading: false });
+      set({ user: res.data.user, loading: false });
     } catch (error) {
       set({ loading: false });
       if (error instanceof AxiosError) {
@@ -109,7 +109,7 @@ export const useUserStore = create<UserStore>((set) => ({
   },
   logout: async () => {
     try {
-      await axiosInstance.post("/auth/logout")
+      await axiosInstance.post("/auth/logout");
       set({ user: null });
     } catch (error) {
       if (error instanceof AxiosError) {

@@ -215,7 +215,10 @@ export const getRecomendations = async (
       },
     ]);
 
-    res.status(200).json(products);
+    res.status(200).json({
+      message: "Recommendations fetched successfully",
+      products: products,
+    });
   } catch (error: any) {
     console.log("Error when getting recommendations", error.message);
     res.status(500).json({ error: "Internal Server Error" });
@@ -237,7 +240,7 @@ export const getProductsByCategory = async (
       return;
     }
 
-    res.status(200).json({products});
+    res.status(200).json({ products });
   } catch (error: any) {
     console.log("Error in getCategory controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
