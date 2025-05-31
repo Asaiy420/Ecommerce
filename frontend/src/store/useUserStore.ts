@@ -32,8 +32,12 @@ interface UserStore {
   logout: () => Promise<void>;
 }
 
+// Initialize user from localStorage if available
+const storedUser = localStorage.getItem("user");
+const initialUser = storedUser ? JSON.parse(storedUser) : null;
+
 export const useUserStore = create<UserStore>((set) => ({
-  user: null,
+  user: initialUser,
   loading: false,
   checkingAuth: false,
 
@@ -64,6 +68,7 @@ export const useUserStore = create<UserStore>((set) => ({
         password,
       });
       set({ user: res.data, loading: false });
+      localStorage.setItem("user", JSON.stringify(res.data));
     } catch (error) {
       set({ loading: false });
       if (error instanceof AxiosError) {
@@ -79,8 +84,9 @@ export const useUserStore = create<UserStore>((set) => ({
 
     try {
       const res = await axiosInstance.post("/auth/login", { email, password });
-
+      console.log("Login response:", res.data);
       set({ user: res.data.user, loading: false });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
     } catch (error) {
       set({ loading: false });
       if (error instanceof AxiosError) {
@@ -93,13 +99,17 @@ export const useUserStore = create<UserStore>((set) => ({
 
   checkAuth: async () => {
     set({ checkingAuth: true });
+    console.log("Checking auth...");
 
     try {
       const response = await axiosInstance.get("/auth/profile");
+      console.log("Auth check response:", response.data);
       set({ user: response.data, checkingAuth: false });
+      localStorage.setItem("user", JSON.stringify(response.data));
     } catch (error) {
-      set({ loading: false });
+      console.log("Auth check error:", error);
       set({ checkingAuth: false, user: null });
+      localStorage.removeItem("user");
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message || "An error occurred");
       } else {
@@ -107,10 +117,12 @@ export const useUserStore = create<UserStore>((set) => ({
       }
     }
   },
+
   logout: async () => {
     try {
       await axiosInstance.post("/auth/logout");
       set({ user: null });
+      localStorage.removeItem("user");
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message || "An error occurred");

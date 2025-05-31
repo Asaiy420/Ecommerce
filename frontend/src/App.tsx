@@ -12,6 +12,7 @@ import Admin from "./pages/Admin.tsx";
 import Category from "./pages/Category.tsx";
 import Cart from "./pages/Cart.tsx";
 import { useCartStore } from "./store/useCartStore.tsx";
+import PurchaseSuccess from "./pages/PurchaseSuccess";
 
 const App = () => {
   const { user, checkAuth, checkingAuth } = useUserStore();
@@ -54,6 +55,10 @@ const App = () => {
             <Route
               path="/cart"
               element={user ? <Cart /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/purchase-success"
+              element={user ? <PurchaseSuccess /> : <Navigate to="/login" />}
             />
           </Routes>
         </div>
