@@ -2,9 +2,31 @@ import { motion } from "framer-motion";
 import { useCartStore } from "../store/useCartStore";
 import { Link } from "react-router-dom";
 import { MoveRight } from "lucide-react";
+import { loadStripe } from "@stripe/stripe-js";
+import axiosInstance from "../lib/axios";
+
+const stripePromise = loadStripe(
+  "pk_test_51RSBKEQEGSP7n933sFQGfeFnX13V4fld7QsK7wHw4J6zZGPwx7Z54jigfq1MQICtxmemBj65ZBCnV84mTAMEx1gy00sFOeoMjX"
+);
 
 const OrderSummary = () => {
-  const { total, subTotal, coupon, isCouponApplied } = useCartStore();
+  const { total, subTotal, coupon, isCouponApplied, cartItems } =
+    useCartStore();
+
+  const handlePayment = async () => {
+    const stripe = await stripePromise;
+    const res = await axiosInstance.post("/payments/create-checkout-session", {
+      products: cartItems,
+      couponCode: coupon?.code,
+    });
+    const session = res.data;
+    const result = await stripe?.redirectToCheckout({
+      sessionId: session.id,
+    });
+    if (result?.error) {
+      console.error(result.error);
+    }
+  };
 
   // Ensure values are numbers and handle NaN/undefined cases
   const safeSubTotal = Number(subTotal) || 0;
@@ -67,6 +89,7 @@ const OrderSummary = () => {
         className="flex w-full items-center justify-center rounded-lg cursor-pointer bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        onClick={handlePayment}
       >
         Checkout
       </motion.button>
