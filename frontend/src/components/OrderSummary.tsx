@@ -21,7 +21,7 @@ const OrderSummary = () => {
       className="space-y-4 rounded-lg border border-zinc-900 bg-black p-4 shadow-sm sm:p-6"
       initial={{ opacity: 0, y: -40 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.2, delay: 0.2 }}
     >
       <p className="text-xl font-semibold text-white text-center">
         Order Summary
