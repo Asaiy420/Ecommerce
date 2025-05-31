@@ -4,9 +4,6 @@ import { stripe } from "../lib/stripe.js";
 import "dotenv/config";
 import Order from "../models/order.model.js";
 
-
-
-
 export const createCheckOutSession = async (
   req: Request,
   res: Response
@@ -128,9 +125,14 @@ export const checkSuccess = async (
           totalAmount: (session.amount_total as number) / 100,
           stripeSessionId: sessionId,
         });
-        
+
         await newOrder.save();
       }
+      // Add success response
+      res.status(200).json({ success: true });
+    } else {
+      // Add error response for unpaid status
+      res.status(400).json({ error: "Payment not completed" });
     }
   } catch (error: any) {
     console.log("Error in checkSuccess controller", error.message);

@@ -26,6 +26,7 @@ interface CartStore {
   calculateTotals: () => Promise<void>;
   removeFromCart: (productId: string) => Promise<void>;
   updateQuantity: (productId: string, quantity: number) => Promise<void>;
+  clearCart: () => Promise<void>;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
@@ -220,5 +221,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
     } finally {
       set({ loading: false });
     }
+  },
+
+  clearCart: async () => {
+    set({ cartItems: [], coupon: null, total: 0, subTotal: 0 });
   },
 }));
