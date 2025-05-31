@@ -4,6 +4,9 @@ import { stripe } from "../lib/stripe.js";
 import "dotenv/config";
 import Order from "../models/order.model.js";
 
+
+
+
 export const createCheckOutSession = async (
   req: Request,
   res: Response
@@ -13,6 +16,7 @@ export const createCheckOutSession = async (
 
     if (!Array.isArray(products) || products.length === 0) {
       res.status(400).json({ error: "Invalid or empty products array" });
+      return;
     }
 
     let totalAmount = 0;
@@ -30,6 +34,7 @@ export const createCheckOutSession = async (
           },
           unit_amount: amount,
         },
+        quantity: product.quantity,
       };
     });
 
