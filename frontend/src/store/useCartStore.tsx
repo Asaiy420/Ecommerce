@@ -27,6 +27,9 @@ interface CartStore {
   removeFromCart: (productId: string) => Promise<void>;
   updateQuantity: (productId: string, quantity: number) => Promise<void>;
   clearCart: () => Promise<void>;
+  getMyCoupon: () => Promise<void>;
+  applyCoupon: (code: string) => Promise<void>;
+  removeCoupon: () => Promise<void>;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
@@ -225,5 +228,34 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   clearCart: async () => {
     set({ cartItems: [], coupon: null, total: 0, subTotal: 0 });
+  },
+  getMyCoupon: async () => {
+    try {
+      const res = await axiosInstance.get("/coupons");
+      set({ coupon: res.data });
+    } catch (error) {
+      console.error("Error fetching coupon:", error);
+    }
+  },
+
+  applyCoupon: async (code: string) => {
+    try {
+      const res = await axiosInstance.post("/coupons/validate", { code });
+      set({ coupon: res.data, isCouponApplied: true });
+      get().calculateTotals();
+      toast.success("Coupon applied successfully");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.message || "Error applying coupon");
+      } else {
+        toast.error("An unexpected error occurred when applying coupon");
+      }
+    }
+  },
+
+  removeCoupon: async () => {
+    set({ coupon: null, isCouponApplied: false });
+    get().calculateTotals();
+    toast.success("Coupon removed successfully");
   },
 }));
