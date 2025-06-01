@@ -26,12 +26,12 @@ const PurchaseCancel = () => {
             </p>
             <div className="bg-zinc-950 rounded-lg p-4 mb-6">
               <p className="text-sm text-white text-center">
-                If you have any questions, please contact us at
+                If you have any questions, please contact us at 
                 <a
                   href="mailto:support@example.com"
                   className="text-emerald-500 hover:text-emerald-600"
                 >
-                  support@example.com
+                   support@example.com
                 </a>
               </p>
             </div>
