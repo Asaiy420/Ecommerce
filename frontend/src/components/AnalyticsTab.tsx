@@ -2,6 +2,16 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import axiosInstance from "../lib/axios";
 import LoadingSpinner from "./LoadingSpinner";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  CartesianGrid,
+} from "recharts";
 
 interface AnalyticsCardProps {
   title: string;
@@ -70,6 +80,23 @@ const AnalyticsTab = () => {
           color="from-emerald-500 to-lime-700"
         />
       </div>
+      <motion.div
+        className="bg-zinc-950 rounded-lg p-6 shadow-lg"
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={dailySalesData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="sales" stroke="#10b981" />
+          </LineChart>
+        </ResponsiveContainer>
+      </motion.div>
     </div>
   );
 };
