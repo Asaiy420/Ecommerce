@@ -30,6 +30,7 @@ interface UserStore {
   login: (params: LoginParams) => Promise<void>;
   checkAuth: () => Promise<void>;
   logout: () => Promise<void>;
+  refreshToken: () => Promise<{ user: User }>;
 }
 
 // Initialize user from localStorage if available
@@ -131,4 +132,51 @@ export const useUserStore = create<UserStore>((set) => ({
       }
     }
   },
+
+  refreshToken: async (): Promise<{ user: User }> => {
+    try {
+      const res = await axiosInstance.post("/auth/refresh-token");
+      set({ user: res.data.user });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      return res.data;
+    } catch (error) {
+      set({ user: null });
+      localStorage.removeItem("user");
+      throw error;
+    }
+  },
 }));
+
+// Axios interceptors
+
+let refreshPromise: Promise<{ user: User }> | null = null;
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        // if a refresh is already in progress wait for it to complete
+        if (refreshPromise) {
+          await refreshPromise;
+          return axiosInstance(originalRequest);
+        }
+
+        // start the refresh
+        refreshPromise = useUserStore.getState().refreshToken();
+        await refreshPromise;
+        refreshPromise = null; // reset the promise
+
+        return axiosInstance(originalRequest); // retry the request
+      } catch (refreshError) {
+        useUserStore.getState().logout();
+        return Promise.reject(refreshError);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
