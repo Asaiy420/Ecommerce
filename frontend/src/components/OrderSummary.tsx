@@ -40,12 +40,12 @@ const OrderSummary = () => {
 
   return (
     <motion.div
-      className="space-y-4 rounded-lg border border-zinc-900 bg-black p-4 shadow-sm sm:p-6"
+      className="space-y-4 rounded-lg border border-zinc-900 bg-transparent p-4 shadow-sm sm:p-6"
       initial={{ opacity: 0, y: -40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, delay: 0.2 }}
     >
-      <p className="text-xl font-semibold text-white text-center">
+      <p className="text-xl font-semibold text-white text-center ">
         Order Summary
       </p>
 
@@ -98,7 +98,7 @@ const OrderSummary = () => {
         <span className="text-sm font-normal text-white">or</span>
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-emerald-400 underline hover:text-emerald-300 hover:no-underline"
+          className="inline-flex items-center gap-2 text-sm font-medium text-emerald-400 dark:text-emerald-300 underline hover:text-emerald-300 dark:hover:text-emerald-400 hover:no-underline"
         >
           Continue Shopping
           <MoveRight size={16} />

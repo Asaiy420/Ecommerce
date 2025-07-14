@@ -57,7 +57,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         <CardItem translateZ="60" className="px-5">
           <div className="mt-2 mb-5 flex items-center justify-between">
             <p>
-              <span className="text-3xl font-bold text-emerald-300">
+              <span className="text-3xl font-bold text-emerald-300 dark:text-emerald-400">
                 ${product.price}
               </span>
             </p>

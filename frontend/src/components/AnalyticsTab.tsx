@@ -112,7 +112,9 @@ const AnalyticsCard = ({ title, value, color }: AnalyticsCardProps) => (
   >
     <div className="flex justify-between">
       <div className="z-10">
-        <p className="text-emerald-300 text-sm mb-1 font-semibold">{title}</p>
+        <p className="text-emerald-300 dark:text-emerald-400 text-sm mb-1 font-semibold">
+          {title}
+        </p>
         <h3 className="text-white text-3xl font-bold">{value}</h3>
       </div>
     </div>

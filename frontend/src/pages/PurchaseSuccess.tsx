@@ -38,7 +38,6 @@ const PurchaseSuccess = () => {
     }
   }, [clearCart]);
 
-
   if (isProcessing) return "Processing...";
 
   if (error) return `Error ${error}`;
@@ -56,9 +55,9 @@ const PurchaseSuccess = () => {
       <div className="max-w-md w-full bg-zinc-950 rounded-lg shadow-xl overflow-hidden relative z-10  ">
         <div className="p-6 sm:p-8">
           <div className="flex justify-center">
-            <CheckCircle className="text-emerald-400 size-16 mb-4" />
+            <CheckCircle className="text-emerald-400 dark:text-emerald-300 size-16 mb-4" />
           </div>
-          <h1 className="text-2xl font-bold text-center text-emerald-500 mb-2">
+          <h1 className="text-2xl font-bold text-center text-emerald-500 dark:text-emerald-300 mb-2">
             Purchase Successful!
           </h1>
           <p className="text-white text-center mb-2">

@@ -104,11 +104,11 @@ const Login = () => {
               )}
             </Button>
           </form>
-          <p className="mt-8 text-center text-sm text-zinc-400">
+          <p className="mt-8 text-center text-sm text-zinc-400 dark:text-zinc-300">
             Not a member?{" "}
             <Link
               to={"/signup"}
-              className="font-medium text-emerald-300 hover:text-emerald-600"
+              className="font-medium text-emerald-300 dark:text-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300"
             >
               Signup here <ArrowRight className="inline size-4" />
             </Link>

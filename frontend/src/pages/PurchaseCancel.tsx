@@ -12,9 +12,9 @@ const PurchaseCancel = () => {
       >
         <div className="p-6 sm:p-8">
           <div className="flex justify-center">
-            <XCircle className="text-red-500 size-16 mb-4" />
+            <XCircle className="text-red-500 dark:text-red-300 size-16 mb-4" />
           </div>
-          <h1 className="text-2xl font-bold text-center text-red-500 mb-2">
+          <h1 className="text-2xl font-bold text-center text-red-500 dark:text-red-300 mb-2">
             Purchase Cancelled
           </h1>
           <p className="text-white text-center mb-6">
@@ -26,12 +26,12 @@ const PurchaseCancel = () => {
             </p>
             <div className="bg-zinc-950 rounded-lg p-4 mb-6">
               <p className="text-sm text-white text-center">
-                If you have any questions, please contact us at 
+                If you have any questions, please contact us at
                 <a
                   href="mailto:support@example.com"
-                  className="text-emerald-500 hover:text-emerald-600"
+                  className="text-emerald-500 dark:text-emerald-300 hover:text-emerald-600 dark:hover:text-emerald-400"
                 >
-                   support@example.com
+                  support@example.com
                 </a>
               </p>
             </div>
