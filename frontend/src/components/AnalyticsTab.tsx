@@ -105,7 +105,7 @@ export default AnalyticsTab;
 
 const AnalyticsCard = ({ title, value, color }: AnalyticsCardProps) => (
   <motion.div
-    className="bg-zinc-950 rounded-lg p-6 shadow-lg overflow-hidden relative"
+    className="aurora-gradient rounded-lg p-6 shadow-lg overflow-hidden relative"
     initial={{ opacity: 0, y: -40 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
