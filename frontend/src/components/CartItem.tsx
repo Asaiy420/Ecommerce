@@ -51,7 +51,7 @@ const CartItem = ({ item }: CartItemProps) => {
   const displayImage = productDetails?.image || item.image;
 
   return (
-    <div className="rounded-lg border p-4 shadow-sm border-zinc-900 bg-black md:p-6">
+    <div className="rounded-lg border p-4 shadow-sm border-zinc-900 aurora-gradient md:p-6">
       <div className="space-y-4 md:flex md:items-center md: justify-between md:gap-6 md:space-y-0">
         <div className="shrink-0 md:order-1 w-20 md:w-32">
           <img
