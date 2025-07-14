@@ -4,18 +4,18 @@ import { useCartStore } from "../store/useCartStore";
 
 const GiftCouponCard = () => {
   const [userInputCode, setUserInputCode] = useState("");
-  const { coupon, isCouponApplied, getMyCoupon, applyCoupon, removeCoupon } = useCartStore();
+  const { coupon, isCouponApplied, getMyCoupon, applyCoupon, removeCoupon } =
+    useCartStore();
 
-
-  useEffect (() => {
+  useEffect(() => {
     getMyCoupon();
-  }, [getMyCoupon])
+  }, [getMyCoupon]);
 
-  useEffect (() => {
+  useEffect(() => {
     if (coupon) {
       setUserInputCode(coupon.code);
     }
-  }, [coupon])
+  }, [coupon]);
 
   const handleApplyCoupon = () => {
     if (!userInputCode) return;
@@ -29,7 +29,7 @@ const GiftCouponCard = () => {
   };
   return (
     <motion.div
-      className="space-y-4 rounded-lg border border-zinc-900 bg-black p-4 shadow-sm sm:p-6"
+      className="space-y-4 rounded-lg border border-zinc-900 aurora-gradient p-4 shadow-sm sm:p-6"
       initial={{ opacity: 0, y: -40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, delay: 0.2 }}
