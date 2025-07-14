@@ -4,12 +4,12 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { useProductStore } from "../store/useProductStore";
 const categories = [
-  "jeans",
-  "t-shirts",
-  "shoes",
-  "glasses",
-  "jackets",
-  "suits",
+  "guitar",
+  "electric-guitar",
+  "ukelele",
+  "guitar-picks",
+  "guitar-bag",
+  "guitar-belt",
   "bags",
 ];
 
