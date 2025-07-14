@@ -38,26 +38,29 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <CardContainer className={`w-full ${containerClassName}`}>
-      <CardBody className="relative w-full h-[400px] aurora-gradient border border-zinc-950 rounded-lg group-hover:shadow-2xl">
+      <CardBody className="relative w-full h-[400px] bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 rounded-xl group-hover:shadow-2xl group-hover:shadow-emerald-500/20 transition-all duration-300">
         <CardItem
           translateZ="150"
           className="w-full h-60 mt-3 mx-3 overflow-hidden rounded-xl group-hover:shadow-xl"
         >
-          <img
-            className="object-cover w-full h-full"
-            src={product.image}
-            alt={product.name}
-          />
+          <div className="relative w-full h-full">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-0" />
+            <img
+              className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-110"
+              src={product.image}
+              alt={product.name}
+            />
+          </div>
         </CardItem>
         <CardItem translateZ="50" className="mt-5 px-5">
-          <h5 className="text-xl font-semibold tracking-tight text-white">
+          <h5 className="text-xl font-semibold tracking-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent group-hover:from-emerald-400 group-hover:to-emerald-300 transition-all duration-300">
             {product.name}
           </h5>
         </CardItem>
         <CardItem translateZ="60" className="px-5">
           <div className="mt-2 mb-5 flex items-center justify-between">
             <p>
-              <span className="text-3xl font-bold text-emerald-300 dark:text-emerald-400">
+              <span className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
                 ${product.price}
               </span>
             </p>

@@ -86,12 +86,12 @@ const OrderSummary = () => {
       </div>
 
       <motion.button
-        className="flex w-full items-center justify-center rounded-lg cursor-pointer bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        className="flex w-full items-center justify-center rounded-xl cursor-pointer bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 px-6 py-3 text-base font-medium text-white shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all duration-300"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         onClick={handlePayment}
       >
-        Checkout
+        Proceed to Checkout
       </motion.button>
 
       <div className="flex items-center justify-center gap-2">

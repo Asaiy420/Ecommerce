@@ -51,32 +51,38 @@ const CartItem = ({ item }: CartItemProps) => {
   const displayImage = productDetails?.image || item.image;
 
   return (
-    <div className="rounded-lg border p-4 shadow-sm border-zinc-900 aurora-gradient md:p-6">
-      <div className="space-y-4 md:flex md:items-center md: justify-between md:gap-6 md:space-y-0">
-        <div className="shrink-0 md:order-1 w-20 md:w-32">
-          <img
-            className="h-20 md:h-32 rounded object-cover w-full"
-            src={displayImage}
-            alt={displayName}
-          />
+    <div className="rounded-xl border p-4 shadow-lg border-slate-700/50 bg-gradient-to-br from-slate-900 to-slate-800/80 backdrop-blur-sm transition-all duration-300 hover:shadow-emerald-500/10 md:p-6">
+      <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+        <div className="shrink-0 md:order-1 w-20 md:w-32 group">
+          <div className="relative overflow-hidden rounded-lg">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-0" />
+            <img
+              className="h-20 md:h-32 object-cover w-full transform transition-transform duration-500 group-hover:scale-110"
+              src={displayImage}
+              alt={displayName}
+            />
+          </div>
         </div>
         <label className="sr-only">Choose quantity</label>
         <div className="flex items-center justify-between md:order-3 md:justify-end">
           <div className="flex items-center gap-2">
             <Button
-              className="inline-flex size-5 shrink-0 items-center justify-center rounded-md border border-zinc-900 bg-gray-950 hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-slate-800 to-slate-700 hover:from-emerald-600 hover:to-emerald-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-lg"
               onClick={() => updateQuantity(item.id, item.quantity - 1)}
             >
-              <Minus className="text-white" />
+              <Minus className="text-white size-4" />
             </Button>
 
-            <p> {item.quantity} </p>
+            <p className="min-w-[2rem] text-center font-medium text-white">
+              {" "}
+              {item.quantity}{" "}
+            </p>
 
             <Button
-              className="inline-flex size-5 shrink-0 items-center justify-center rounded-md border border-zinc-900 bg-gray-950 hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-slate-800 to-slate-700 hover:from-emerald-600 hover:to-emerald-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-lg"
               onClick={() => updateQuantity(item.id, item.quantity + 1)}
             >
-              <Plus className="text-white" />
+              <Plus className="text-white size-4" />
             </Button>
           </div>
           <div className="text-end md:order-4 md:w-32">

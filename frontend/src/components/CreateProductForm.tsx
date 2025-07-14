@@ -26,7 +26,13 @@ const CreateProductForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await createProduct(newProduct);
-    setNewProduct({ name: "", description: "", price: 0, category: "", image: "" });
+    setNewProduct({
+      name: "",
+      description: "",
+      price: 0,
+      category: "",
+      image: "",
+    });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +51,7 @@ const CreateProductForm = () => {
 
   return (
     <motion.div
-      className="bg-black shadow-lg rounded-lg p-8 mb-8 max-w-xl mx-auto "
+      className="bg-transparent shadow-lg rounded-lg p-8 mb-8 max-w-xl mx-auto "
       initial={{ opacity: 0, y: -40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -71,7 +77,7 @@ const CreateProductForm = () => {
             onChange={(e) =>
               setNewProduct({ ...newProduct, name: e.target.value })
             }
-            className="mt-1 block w-full bg-zinc-950 border border-zinc-900 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 ease-out"
+            className="mt-1 block w-full bg-slate-900/50 border border-slate-700/50 rounded-lg shadow-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-300"
             required
           />
         </div>
@@ -79,7 +85,7 @@ const CreateProductForm = () => {
         <div>
           <label
             htmlFor="description"
-            className=" mt-2 block text-sm font-medium text-white"
+            className=" block text-sm font-medium text-white"
           >
             Description
           </label>
@@ -91,7 +97,7 @@ const CreateProductForm = () => {
             onChange={(e) =>
               setNewProduct({ ...newProduct, description: e.target.value })
             }
-            className="mt-1 block w-full bg-zinc-950 border border-zinc-900 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 ease-out"
+            className="mt-1 block w-full bg-slate-900/50 border border-slate-700/50 rounded-lg shadow-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-300"
             required
           />
         </div>
@@ -116,7 +122,7 @@ const CreateProductForm = () => {
               })
             }
             step="0.01"
-            className="mt-1 block w-full bg-zinc-950 border border-zinc-900 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 ease-out"
+            className="mt-1 block w-full bg-slate-900/50 border border-slate-700/50 rounded-lg shadow-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-300"
             required
           />
         </div>
@@ -136,7 +142,7 @@ const CreateProductForm = () => {
             onChange={(e) =>
               setNewProduct({ ...newProduct, category: e.target.value })
             }
-            className="mt-1 block w-full bg-zinc-950 border border-zinc-900 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 ease-out"
+            className="mt-1 block w-full bg-slate-900/50 border border-slate-700/50 rounded-lg shadow-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-300"
             required
           >
             <option value="">Select a category</option>
@@ -148,7 +154,7 @@ const CreateProductForm = () => {
           </select>
         </div>
         {/* IMAGE FORM */}
-        <div className="mt-1 flex items-center">
+        <div className="mt-1 flex items-center justify-center">
           <input
             type="file"
             id="image"
@@ -158,9 +164,9 @@ const CreateProductForm = () => {
           />
           <label
             htmlFor="image"
-            className=" mt-2 cursor-pointer bg-zinc-950 py-2 px-3 border border-zinc-900 rounded-md shadow-sm text-sm leading-4 font-medium text-white hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-emerald-500"
+            className="mt-2 cursor-pointer inline-flex items-center bg-gradient-to-r from-slate-800 to-slate-700 hover:from-emerald-600 hover:to-emerald-500 py-3 px-4 rounded-lg shadow-lg text-sm font-medium text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
           >
-            <Upload className="size-5 inline-block mr-2" />
+            <Upload className="size-5 inline-block mr-2 group-hover:scale-110 transition-transform duration-300" />
             Upload Image
           </label>
           {newProduct.image && (

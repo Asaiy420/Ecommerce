@@ -8,13 +8,13 @@ const ProductsList = () => {
 
   return (
     <motion.div
-      className="bg-zinc-950 shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto"
+      className="bg-transparent shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto border border-zinc-950"
       initial={{ opacity: 0, y: -40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
       <table className="min-w-full divide-y divide-zinc-800">
-        <thead className="bg-zinc-950">
+        <thead className="bg-transparent">
           <tr>
             <th
               scope="col"
@@ -48,7 +48,7 @@ const ProductsList = () => {
             </th>
           </tr>
         </thead>
-        <tbody className="bg-zinc-950 divide-y divide-zinc-700">
+        <tbody className="bg-transparent divide-y divide-zinc-700">
           {products?.map((product) => (
             <tr key={product._id} className="hover:bg-zinc-800">
               <td className="px-6 py-4 whitespace-nowrap">

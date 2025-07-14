@@ -13,7 +13,7 @@ const Home = () => {
   ];
 
   return (
-    <main className="bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-slate-900 min-h-screen transition-colors duration-300">
+    <main className="">
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.15)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] [background-size:24px_24px] opacity-20" />
 
@@ -28,13 +28,13 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.25, 0.25, 0, 1] }}
         >
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-slate-100 transition-colors duration-300">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight bg-gradient-to-r from-slate-100 to-slate-300 dark:from-white dark:to-slate-200 bg-clip-text text-transparent transition-all duration-300 mb-4">
             Find Your Perfect
-            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-blue-600 bg-clip-text text-transparent">
+            <span className="block mt-2 bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent">
               Musical Instrument
             </span>
           </h1>
-          <p className="mt-6 text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
+          <p className="mt-8 text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto transition-colors duration-300">
             Premium quality instruments for musicians of all levels.
             <br className="hidden sm:block" />
             Start your musical journey with confidence.
