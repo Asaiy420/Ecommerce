@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const isAdmin = user?.role === "admin";
   return (
-    <header className="fixed top-0 left-0 w-full bg-black bg-opacity-90 backgrop-blur-md shadow-lg z-40 transition-all duration-300 border -b border-zinc-900">
+    <header className="fixed top-0 left-0 w-full aurora-gradient bg-opacity-90 backdrop-blur-md shadow-lg z-40 transition-all duration-300 border -b border-zinc-900">
       <div className="container mx-auto px-4 py-3">
         <div className="flex flex-wrap justify-between items-center">
           <Link
@@ -48,7 +48,7 @@ const Navbar = () => {
             {isAdmin && (
               <Link
                 to={"/secret-dashboard"}
-                className="bg-black hover:bg-gray-400 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
+                className="aurora-gradient hover:bg-gray-400/20 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
               >
                 <Lock className="inline-block mr-1 " size={18} />
                 <span className="hidden sm:inline">Dashboard</span>
@@ -57,7 +57,7 @@ const Navbar = () => {
 
             {user ? (
               <Button
-                className=" bg-black hover:bg-gray-400 text-white rounded-md flex items-center transition duration-300 ease-in-out"
+                className="aurora-gradient hover:bg-gray-400/20 text-white rounded-md flex items-center transition duration-300 ease-in-out"
                 onClick={logout}
               >
                 <LogOut size={18} />
@@ -67,7 +67,7 @@ const Navbar = () => {
               <>
                 <Link
                   to={"/signup"}
-                  className="bg-black hover:bg-gray-400 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
+                  className="aurora-gradient hover:bg-gray-400/20 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
                 >
                   <UserPlus className="mr-2" size={18} />
                   Sign Up
@@ -75,7 +75,7 @@ const Navbar = () => {
 
                 <Link
                   to={"/login"}
-                  className="bg-black hover:bg-gray-400 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
+                  className="aurora-gradient hover:bg-gray-400/20 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
                 >
                   <LogIn className="mr-2" size={18} />
                   Login
