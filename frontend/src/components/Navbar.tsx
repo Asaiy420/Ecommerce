@@ -18,7 +18,7 @@ const Navbar = () => {
             to="/"
             className="text-2xl font-bold items-center space-x-2 flex"
           >
-            Ecommerce
+            Mero Sangeet
           </Link>
 
           <nav className="flex flex-wrap items-center gap-4">
