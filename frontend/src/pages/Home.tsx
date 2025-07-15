@@ -13,14 +13,11 @@ const Home = () => {
   ];
 
   return (
-    <main className="">
+    <main className="relative">
       {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.15)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] [background-size:24px_24px] opacity-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.15)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] [background-size:24px_24px] opacity-20 z-0" />
 
-      {/* Theme toggle positioned at top-right */}
-      <div className="absolute top-4 right-4 z-50"></div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 z-10">
         {/* Hero Section */}
         <motion.div
           className="text-center max-w-4xl mx-auto"
@@ -28,35 +25,17 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.25, 0.25, 0, 1] }}
         >
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight bg-gradient-to-r from-slate-100 to-slate-300 dark:from-white dark:to-slate-200 bg-clip-text text-transparent transition-all duration-300 mb-4">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight bg-gradient-to-r from-slate-100 to-slate-300 dark:from-white dark:to-slate-200 bg-clip-text text-transparent transition-all duration-300">
             Find Your Perfect
-            <span className="block mt-2 bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent">
+            <span className="block mt-2 bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent pb-2">
               Musical Instrument
             </span>
           </h1>
-          <p className="mt-8 text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto transition-colors duration-300">
+          <p className="mt-8 text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto transition-colors duration-300 pt-10">
             Premium quality instruments for musicians of all levels.
             <br className="hidden sm:block" />
             Start your musical journey with confidence.
           </p>
-
-          {/* CTA Buttons */}
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.button
-              className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-200"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Shop Now
-            </motion.button>
-            <motion.button
-              className="px-8 py-3 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold rounded-lg hover:border-slate-400 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Browse Catalog
-            </motion.button>
-          </div>
         </motion.div>
 
         {/* Categories Grid */}
@@ -66,11 +45,11 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 text-center mb-12 transition-colors duration-300">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 text-center mb-8 transition-colors duration-300">
             Shop by Category
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {categories.map((category, index) => (
               <motion.div
                 key={category.name}
