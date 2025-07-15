@@ -3,6 +3,7 @@ import Coupon from "../models/coupon.model.js";
 
 export const getCoupon = async (req: Request, res: Response): Promise<void> => {
   try {
+    // Check if the user is authenticated
     const coupon = await Coupon.findOne({
       userId: (req as any).user._id,
       isActive: true,

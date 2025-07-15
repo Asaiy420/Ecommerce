@@ -49,7 +49,7 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
-      res.status(400).json({ message: "All fields are required" });
+      res.status(400).json({ message: "All fields are required" }); // check if all fields are provided
       return;
     }
 
