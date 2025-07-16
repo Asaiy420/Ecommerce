@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import CategoryItem from "../components/CategoryItem";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const categories = [
@@ -76,35 +77,11 @@ const Home = () => {
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 transition-colors duration-300">
-                10K+
+              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 transition-colors duration-300 mb-2  ">
+                Explore
               </div>
               <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                Happy Customers
-              </div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 transition-colors duration-300">
-                500+
-              </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                Premium Products
-              </div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 transition-colors duration-300">
-                24/7
-              </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                Customer Support
-              </div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 transition-colors duration-300">
-                Free
-              </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                Shipping & Returns
+               <Link to="/cart">Cart</Link>
               </div>
             </div>
           </div>
