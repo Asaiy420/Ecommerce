@@ -1,3 +1,4 @@
+
 import { ShoppingCart, UserPlus, LogIn, LogOut, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -10,71 +11,58 @@ const Navbar = () => {
   const { cartItems } = useCartStore();
   const isAdmin = user?.role === "admin";
 
-  // Add scroll animation
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
-      className={`sticky  h-0 left-0 w-full z-20 transition-all duration-300 ${
-        isScrolled
-          ? "glass-effect shadow-lg backdrop-blur-lg bg-white/70 dark:bg-gray-900/80"
-          : "bg-transparent"
+      className={`sticky top-0 left-0 w-full z-20 bg-white shadow-sm transition-all duration-300 ${
+        isScrolled ? "shadow-md" : ""
       }`}
     >
-      <div className="container mx-auto px- py-auto ">
-        <div className="flex flex-wrap justify-between items-center">
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex justify-between items-center">
           <Link
             to="/"
-            className="text-xl font-bold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent hover:from-emerald-400 hover:to-teal-400 transition-all duration-300 flex items-center gap-2"
+            className="text-2xl font-bold text-gray-900 tracking-tight"
+            style={{ letterSpacing: "-0.5px" }}
           >
-            <span className="text-2xl">🎵</span> Mero Sangeet
+            Mero Sangeet
           </Link>
-
-          <nav className="flex flex-wrap items-center gap-6">
+          <nav className="flex items-center gap-6">
             <Link
               to={"/"}
-              className="relative text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-500 dark:hover:text-emerald-400 font-medium transition-all duration-300 group"
+              className="text-sm text-gray-700 hover:text-blue-600 font-medium transition-colors"
             >
               Home
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-500 dark:bg-emerald-400 transition-all duration-300 group-hover:w-full"></span>
             </Link>
             {user && (
               <Link
                 to={"/cart"}
-                className="relative group text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-500 dark:hover:text-emerald-400 font-medium transition-all duration-300"
+                className="relative text-sm text-gray-700 hover:text-blue-600 font-medium transition-colors"
               >
                 <span className="flex items-center gap-2">
-                  <ShoppingCart
-                    className="transition-transform duration-300 group-hover:scale-110"
-                    size={18}
-                  />
+                  <ShoppingCart size={18} />
                   <span className="hidden sm:inline">Cart</span>
                   {cartItems.length > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px] font-bold animate-pulse">
+                    <span className="absolute -top-2 -right-2 bg-blue-600 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px] font-bold">
                       {cartItems.length}
                     </span>
                   )}
                 </span>
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             )}
             {isAdmin && (
               <Link
                 to={"/secret-dashboard"}
-                className="relative group px-3 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-medium hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
+                className="px-3 py-1.5 rounded text-white bg-gray-800 text-sm font-medium hover:bg-gray-700 transition-colors"
               >
                 <span className="flex items-center gap-1.5">
                   <Lock size={16} />
@@ -82,12 +70,11 @@ const Navbar = () => {
                 </span>
               </Link>
             )}
-
             <div className="flex items-center gap-3">
               {user ? (
                 <Button
                   onClick={logout}
-                  className="relative group px-3 py-1.5 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 text-white text-sm font-medium hover:shadow-lg hover:shadow-rose-500/20 transition-all duration-300"
+                  className="px-3 py-1.5 rounded text-white bg-red-600 text-sm font-medium hover:bg-red-700 transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <LogOut size={18} />
@@ -98,17 +85,16 @@ const Navbar = () => {
                 <>
                   <Link
                     to={"/signup"}
-                    className="relative group px-3 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-medium hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
+                    className="px-3 py-1.5 rounded text-white bg-blue-600 text-sm font-medium hover:bg-blue-700 transition-colors"
                   >
                     <span className="flex items-center gap-1.5">
                       <UserPlus size={16} />
                       <span className="hidden sm:inline">Sign Up</span>
                     </span>
                   </Link>
-
                   <Link
                     to={"/login"}
-                    className="relative group px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-sm font-medium hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
+                    className="px-3 py-1.5 rounded text-white bg-gray-700 text-sm font-medium hover:bg-gray-800 transition-colors"
                   >
                     <span className="flex items-center gap-2">
                       <LogIn size={18} />
