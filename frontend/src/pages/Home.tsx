@@ -14,7 +14,7 @@ const Home = () => {
   ];
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-neutral-200">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         {/* Hero Section */}
         <motion.div

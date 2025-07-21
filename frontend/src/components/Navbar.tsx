@@ -1,4 +1,3 @@
-
 import { ShoppingCart, UserPlus, LogIn, LogOut, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -23,7 +22,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`sticky top-0 left-0 w-full z-20 bg-white shadow-sm transition-all duration-300 ${
+      className={`sticky top-0 left-0 w-full bg-white shadow-sm transition-all duration-300 ${
         isScrolled ? "shadow-md" : ""
       }`}
     >
