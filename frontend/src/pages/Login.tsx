@@ -28,7 +28,7 @@ const Login = () => {
         transition={{ duration: 0.8 }}
       >
         <h2 className="mt-6 text-center text-3xl font-extrabold text-shadow-white">
-          Create your account
+          Login to your account
         </h2>
       </motion.div>
 
@@ -38,7 +38,7 @@ const Login = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <div className="bg-black py-8 px-4 shadow sm-rounded-lg sm:px-10 ">
+        <div className="bg-transparent py-8 px-4 shadow sm-rounded-lg sm:px-10 shadow-lg ">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* EMAIL */}
             <div>
@@ -58,7 +58,7 @@ const Login = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full px-3 py-2 pl-10 bg-zinc-950 border border-zinc-950 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+                  className="block w-full px-3 py-2 pl-10 bg-transparent border border-zinc-950 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                   placeholder="doe@gmail.com"
                 />
               </div>
