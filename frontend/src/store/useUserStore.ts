@@ -35,7 +35,9 @@ interface UserStore {
 
 // Initialize user from localStorage if available
 const storedUser = localStorage.getItem("user");
-const initialUser = storedUser ? JSON.parse(storedUser) : null;
+
+const initialUser =
+  storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null;
 
 export const useUserStore = create<UserStore>((set) => ({
   user: initialUser,
