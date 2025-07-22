@@ -7,6 +7,7 @@ import PeopleAlsoBought from "../components/PeopleAlsoBought";
 import OrderSummary from "../components/OrderSummary";
 import GiftCouponCard from "../components/GiftCouponCard";
 
+//Card Items
 const Cart = () => {
   const { cartItems } = useCartStore();
   return (
