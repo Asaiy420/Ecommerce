@@ -30,7 +30,7 @@ const App = () => {
   if (checkingAuth) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-neutral-200 text-slate-900 relative overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen bg-white-200 text-slate-900 relative overflow-hidden transition-colors duration-300">
       <div className="top-0 flex flex-col items-center">
         <Navbar />
         <Routes>
