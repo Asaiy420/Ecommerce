@@ -44,7 +44,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-neutral-900"
               >
                 Email
               </label>
