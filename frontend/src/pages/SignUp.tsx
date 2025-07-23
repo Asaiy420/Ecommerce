@@ -27,14 +27,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8 shadow-2xl mt-6">
       <motion.div
         className="sm:mx-auto sm:w-full sm:max-w-md"
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-shadow-white">
+        <h2 className="mt-6 text-center text-3xl font-extrabold">
           Create your account
         </h2>
       </motion.div>
@@ -45,19 +45,19 @@ const SignUp = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <div className="bg-transparent py-8 px-4 shadow sm-rounded-lg sm:px-10 ">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="bg-transparent py-8 px-4 sm-rounded-lg sm:px-10">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* FULLNAME */}
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-black"
               >
                 Username
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="size-5 text-white" aria-hidden="true" />
+                  <User className="size-5 text-black" aria-hidden="true" />
                 </div>
                 <input
                   id="username"
@@ -76,13 +76,13 @@ const SignUp = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-black"
               >
                 Email
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="size-5 text-white" aria-hidden="true" />
+                  <Mail className="size-5 text-black" aria-hidden="true" />
                 </div>
                 <input
                   id="email"
@@ -101,13 +101,13 @@ const SignUp = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-black"
               >
                 Password
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="size-5 text-white" aria-hidden="true" />
+                  <Lock className="size-5 text-black" aria-hidden="true" />
                 </div>
                 <input
                   id="password"
@@ -128,13 +128,13 @@ const SignUp = () => {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-black"
               >
                 Confirm Password
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="size-5 text-white" aria-hidden="true" />
+                  <Lock className="size-5 text-black" aria-hidden="true" />
                 </div>
                 <input
                   id="confirmPassword"
@@ -154,7 +154,7 @@ const SignUp = () => {
             </div>
             <Button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-400 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-150 ease-in-out disabled:opacity-50"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-150 ease-in-out disabled:opacity-50"
               disabled={loading}
             >
               {loading ? (
@@ -170,11 +170,11 @@ const SignUp = () => {
               )}
             </Button>
           </form>
-          <p className="mt-8 text-center text-sm text-zinc-400 dark:text-zinc-300">
+          <p className="mt-8 text-center text-sm text-black">
             Already have an account?{" "}
             <Link
               to={"/login"}
-              className="font-medium text-emerald-300 dark:text-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300"
+              className="font-medium text-orange-600 hover:text-orange-400"
             >
               Login here <ArrowRight className="inline size-4" />
             </Link>
