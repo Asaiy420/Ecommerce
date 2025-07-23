@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`sticky top-0 left-0 w-full bg-white shadow-sm transition-all duration-300 ${
+      className={`sticky top-0 left-0 w-full bg-orange-600 shadow-sm transition-all duration-300 ${
         isScrolled ? "shadow-md" : ""
       }`}
     >
@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <Link
             to="/"
-            className="text-2xl font-bold text-gray-900 tracking-tight"
+            className="text-2xl font-bold text-white tracking-tight"
             style={{ letterSpacing: "-0.5px" }}
           >
             Mero Sangeet
@@ -38,7 +38,7 @@ const Navbar = () => {
           <nav className="flex items-center gap-6">
             <Link
               to={"/"}
-              className="text-sm text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              className="text-sm text-white hover:text-gray-800 font-medium transition-colors"
             >
               Home
             </Link>
@@ -84,7 +84,7 @@ const Navbar = () => {
                 <>
                   <Link
                     to={"/signup"}
-                    className="px-3 py-1.5 rounded text-white bg-blue-600 text-sm font-medium hover:bg-blue-700 transition-colors"
+                    className="px-3 py-1.5 rounded text-white text-sm font-medium  hover:bg-gray-800 transition-colors"
                   >
                     <span className="flex items-center gap-1.5">
                       <UserPlus size={16} />
@@ -93,7 +93,7 @@ const Navbar = () => {
                   </Link>
                   <Link
                     to={"/login"}
-                    className="px-3 py-1.5 rounded text-white bg-gray-700 text-sm font-medium hover:bg-gray-800 transition-colors"
+                    className="px-3 py-1.5 rounded text-white text-sm font-medium hover:bg-gray-800 transition-colors"
                   >
                     <span className="flex items-center gap-2">
                       <LogIn size={18} />
