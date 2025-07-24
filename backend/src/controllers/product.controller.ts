@@ -8,7 +8,8 @@ export const getProducts = async (
   res: Response
 ): Promise<void> => {
   try {
-    const products = await Product.find({});
+    const sortOrder = req.query.sort === "desc" ? -1: 1;
+    const products = await Product.find({}).sort({price: sortOrder});
 
     res.status(200).json({
       message: "Products fetched successfully",
