@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`sticky top-0 left-0 w-full bg-orange-600 shadow-sm transition-all duration-300 ${
+      className={`sticky top-0 left-0 w-full shadow-sm transition-all duration-300 ${
         isScrolled ? "shadow-md" : ""
       }`}
     >
@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <Link
             to="/"
-            className="text-2xl font-bold text-white tracking-tight"
+            className="text-2xl font-bold text-black   tracking-tight"
             style={{ letterSpacing: "-0.5px" }}
           >
             Mero Sangeet
