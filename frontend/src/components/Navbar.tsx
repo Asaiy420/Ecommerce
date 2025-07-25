@@ -38,7 +38,7 @@ const Navbar = () => {
           <nav className="flex items-center gap-6">
             <Link
               to={"/"}
-              className="text-sm text-white hover:text-gray-800 font-medium transition-colors"
+              className="text-sm text-black hover:text-blue-400 font-medium transition-colors"
             >
               Home
             </Link>
@@ -61,7 +61,7 @@ const Navbar = () => {
             {isAdmin && (
               <Link
                 to={"/secret-dashboard"}
-                className="px-3 py-1.5 rounded text-white bg-gray-800 text-sm font-medium hover:bg-gray-700 transition-colors"
+                className="px-3 py-1.5 rounded text-black bg-gray-800 text-sm font-medium hover:bg-gray-700 transition-colors"
               >
                 <span className="flex items-center gap-1.5">
                   <Lock size={16} />
@@ -73,7 +73,7 @@ const Navbar = () => {
               {user ? (
                 <Button
                   onClick={logout}
-                  className="px-3 py-1.5 rounded text-white bg-red-600 text-sm font-medium hover:bg-red-700 transition-colors"
+                  className="px-3 py-1.5 rounded text-black bg-red-600 text-sm font-medium hover:bg-red-700 transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <LogOut size={18} />
@@ -84,7 +84,7 @@ const Navbar = () => {
                 <>
                   <Link
                     to={"/signup"}
-                    className="px-3 py-1.5 rounded text-white text-sm font-medium  hover:bg-gray-800 transition-colors"
+                    className="px-3 py-1.5 rounded text-black text-sm font-medium  hover:bg-blue-400 transition-colors"
                   >
                     <span className="flex items-center gap-1.5">
                       <UserPlus size={16} />
@@ -93,7 +93,7 @@ const Navbar = () => {
                   </Link>
                   <Link
                     to={"/login"}
-                    className="px-3 py-1.5 rounded text-white text-sm font-medium hover:bg-gray-800 transition-colors"
+                    className="px-3 py-1.5 rounded text-black text-sm font-medium hover:bg-blue-400 transition-colors"
                   >
                     <span className="flex items-center gap-2">
                       <LogIn size={18} />
