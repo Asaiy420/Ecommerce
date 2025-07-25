@@ -29,7 +29,7 @@ const App = () => {
 
   if (checkingAuth) return <LoadingSpinner />;
 
-  return (
+  return (                                                                                                                              
     <div className="min-h-screen bg-slate-100 text-slate-900 relative overflow-hidden transition-colors duration-300">
       <div className="top-0 flex flex-col items-center">
         <Navbar />
