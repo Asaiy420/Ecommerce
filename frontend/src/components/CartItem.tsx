@@ -51,7 +51,7 @@ const CartItem = ({ item }: CartItemProps) => {
   const displayImage = productDetails?.image || item.image;
 
   return (
-    <div className="rounded-xl border p-4 shadow-lg border-slate-700/50 bg-gradient-to-br from-slate-900 to-slate-800/80 backdrop-blur-sm transition-all duration-300 hover:shadow-emerald-500/10 md:p-6">
+    <div className="rounded-xl border p-4 shadow-lg border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:shadow-emerald-500/10 md:p-6">
       <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
         <div className="shrink-0 md:order-1 w-20 md:w-32 group">
           <div className="relative overflow-hidden rounded-lg">
@@ -67,26 +67,26 @@ const CartItem = ({ item }: CartItemProps) => {
         <div className="flex items-center justify-between md:order-3 md:justify-end">
           <div className="flex items-center gap-2">
             <Button
-              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-slate-800 to-slate-700 hover:from-emerald-600 hover:to-emerald-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-lg"
+              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-slate-800 to-slate-700 hover:from-blue-600 hover:to-blue-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 cursor-pointer shadow-lg"
               onClick={() => updateQuantity(item.id, item.quantity - 1)}
             >
               <Minus className="text-white size-4" />
             </Button>
 
-            <p className="min-w-[2rem] text-center font-medium text-white">
+            <p className="min-w-[2rem] text-center font-medium text-black">
               {" "}
               {item.quantity}{" "}
             </p>
 
             <Button
-              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-slate-800 to-slate-700 hover:from-emerald-600 hover:to-emerald-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-lg"
+              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-slate-800 to-slate-700 hover:from-blue-600 hover:to-blue-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 cursor-pointer shadow-lg"
               onClick={() => updateQuantity(item.id, item.quantity + 1)}
             >
               <Plus className="text-white size-4" />
             </Button>
           </div>
           <div className="text-end md:order-4 md:w-32">
-            <p className="text-base font-bold text-emerald-400 dark:text-emerald-300">
+            <p className="text-base font-bold text-black">
               $
               {displayPrice
                 ? (displayPrice * item.quantity).toFixed(2)
@@ -95,10 +95,10 @@ const CartItem = ({ item }: CartItemProps) => {
           </div>
         </div>
         <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-          <p className="text-base font-medium text-white dark:text-slate-100 hover:text-emerald-400 dark:hover:text-emerald-300 hover:underline cursor-pointer">
+          <p className="text-base font-medium text-black hover:underline cursor-pointer">
             {displayName}
           </p>
-          <p className="text-sm text-white">{displayDescription}</p>
+          <p className="text-sm text-black">{displayDescription}</p>
 
           <div className="flex items-center gap-4">
             <Button
