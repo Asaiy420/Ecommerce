@@ -61,7 +61,7 @@ const Navbar = () => {
             {isAdmin && (
               <Link
                 to={"/secret-dashboard"}
-                className="px-3 py-1.5 rounded text-black bg-gray-800 text-sm font-medium hover:bg-gray-700 transition-colors"
+                className="px-3 py-1.5 rounded text-black text-sm font-medium hover:bg-blue-600 transition-colors"
               >
                 <span className="flex items-center gap-1.5">
                   <Lock size={16} />
@@ -73,7 +73,7 @@ const Navbar = () => {
               {user ? (
                 <Button
                   onClick={logout}
-                  className="px-3 py-1.5 rounded text-black bg-red-600 text-sm font-medium hover:bg-red-700 transition-colors"
+                  className="px-2 py-4 rounded text-black  text-sm font-medium hover:bg-red-700 transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <LogOut size={18} />
