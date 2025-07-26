@@ -17,7 +17,7 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
       className="block h-[340px] w-full bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-300"
       style={{ textDecoration: "none" }}
     >
-      <div className="w-full h-3/5 relative">
+      <div className="w-full h-3/5 relative ">
         <img
           src={category.imageUrl}
           alt={category.name}
